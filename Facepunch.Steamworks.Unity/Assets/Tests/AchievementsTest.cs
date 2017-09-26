@@ -23,6 +23,23 @@ using Facepunch.Steamworks;
 
 public class ClientTests
     {
+		[UnityTest]
+		public IEnumerator GetCurrentLanguage()
+		{
+			if ( Client.Instance == null )
+			{
+				Facepunch.Steamworks.Config.ForUnity( Application.platform.ToString() );
+				new Facepunch.Steamworks.Client( 252490 );
+				
+				yield return new WaitForEndOfFrame();
+			}
+			if ( Client.Instance == null )
+			{
+				Debug.LogError( "Error starting Steam!" );
+			}
+
+			Assert.IsNotNull(Client.Instance.CurrentLanguage, "Current Language: " + Client.Instance.CurrentLanguage);
+		}
 
 		[UnityTest]
         public IEnumerator GetUserName()
@@ -32,7 +49,7 @@ public class ClientTests
 				Facepunch.Steamworks.Config.ForUnity( Application.platform.ToString() );
 				new Facepunch.Steamworks.Client( 252490 );
 				
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForEndOfFrame();
 			}
 			if ( Client.Instance == null )
 			{
@@ -50,7 +67,7 @@ public class ClientTests
 				Facepunch.Steamworks.Config.ForUnity( Application.platform.ToString() );
 				new Facepunch.Steamworks.Client( 252490 );
 				
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForEndOfFrame();
 			}
 
 			if ( Client.Instance == null )
